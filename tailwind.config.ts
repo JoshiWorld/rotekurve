@@ -1,12 +1,17 @@
-import type { Config } from "tailwindcss"
+import type { Config } from "tailwindcss";
+import flowbite from "flowbite-react/tailwind";
 
+/** @type {import('tailwindcss').Config} */
+/**
+ * @type {import('@types/tailwindcss/tailwind-config').TailwindConfig}
+ */
 const config = {
   darkMode: ["class"],
   content: [
-    './pages/**/*.{ts,tsx}',
-    './components/**/*.{ts,tsx}',
-    './app/**/*.{ts,tsx}',
     './src/**/*.{ts,tsx}',
+    './public/**/*.html',
+    "./node_modules/flowbite-react/lib/**/*.js",
+    flowbite.content(),
 	],
   prefix: "",
   theme: {
@@ -74,7 +79,10 @@ const config = {
       },
     },
   },
-  plugins: [require("tailwindcss-animate")],
+  plugins: [
+    flowbite.plugin(),
+    require("flowbite/plugin")
+  ],
 } satisfies Config
 
 export default config

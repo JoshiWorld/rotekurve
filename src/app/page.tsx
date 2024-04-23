@@ -1,21 +1,14 @@
 import Link from "next/link";
 
-import { CreatePost } from "@/app/_components/create-post";
+import { CreatePost } from "@/app/_components/internal/posts/create-post";
 import { getServerAuthSession } from "@/server/auth";
 import { api } from "@/trpc/server";
-import { ThemeSwitch } from "@/components/theme-switch";
 
 export default async function Home() {
-  const hello = await api.post.hello({ text: "from tRPC" });
   const session = await getServerAuthSession();
 
   return (
-    <div className="flex flex-col items-center gap-2">
-      <ThemeSwitch />
-      <p className="text-2xl">
-        {hello ? hello.greeting : "Loading tRPC query..."}
-      </p>
-
+    <div className="flex flex-col items-center gap-2 mt-8">
       <div className="flex flex-col items-center justify-center gap-4">
         <p className="text-center text-2xl">
           {session && <span>Logged in as {session.user?.name}</span>}
@@ -40,7 +33,7 @@ async function CrudShowcase() {
   return (
     <div className="w-full max-w-xs">
       {latestPost ? (
-        <p className="truncate">Your most recent post: {latestPost.name}</p>
+        <p className="truncate">Your most recent post: {latestPost.title}</p>
       ) : (
         <p>You have no posts yet.</p>
       )}
