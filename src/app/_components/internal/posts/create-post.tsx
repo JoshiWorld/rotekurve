@@ -31,8 +31,7 @@ export function CreatePost() {
     }
   });
 
-   const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
-     e.preventDefault();
+   const handleSubmit = async () => {
      if (!file) return;
 
      const formData = new FormData();
