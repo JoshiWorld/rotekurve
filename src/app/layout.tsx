@@ -6,6 +6,7 @@ import { TRPCReactProvider } from "@/trpc/react";
 import { ThemeProvider } from "@/components/theme-provider";
 import { Nav } from "@/components/navbar";
 import { Toaster } from "@/components/ui/sonner";
+import { SiteFooter } from "@/components/footer";
 
 
 const inter = Inter({
@@ -36,6 +37,7 @@ export default function RootLayout({
           <Nav />
           <TRPCReactProvider>{children}</TRPCReactProvider>
           <Toaster />
+          <SiteFooter />
         </ThemeProvider>
       </body>
     </html>
