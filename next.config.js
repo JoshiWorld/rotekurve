@@ -6,6 +6,15 @@ await import("./src/env.js");
 
 /** @type {import("next").NextConfig} */
 const config = {
+    async redirects() {
+        return [
+            {
+                source: '/',
+                destination: '/aktuelles',
+                permanent: true,
+            },
+        ];
+    },
     images: {
         remotePatterns: [
             {
