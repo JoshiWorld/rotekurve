@@ -20,8 +20,10 @@ export async function POST(req: NextRequest) {
 		return NextResponse.json( { error: "File is required."}, { status: 400 } );
 	}
     
+    // @ts-expect-error || file.arrayBuffer() is always there, when a file is delivered
     // eslint-disable-next-line @typescript-eslint/no-unsafe-call, @typescript-eslint/no-unsafe-argument
     const buffer = Buffer.from(await file.arrayBuffer());
+    // @ts-expect-error || its always true
     const fileName = `posts/${Date.now()}-${file.name}`;
 
     const uploadParams = {
