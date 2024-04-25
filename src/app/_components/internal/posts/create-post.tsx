@@ -31,7 +31,7 @@ export function CreatePost() {
     }
   });
 
-   const handleSubmit = async (e) => {
+   const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
      e.preventDefault();
      if (!file) return;
 
@@ -44,7 +44,9 @@ export function CreatePost() {
          body: formData,
        });
 
+       // eslint-disable-next-line @typescript-eslint/no-unsafe-assignment
        const data = await response.json();
+       // eslint-disable-next-line @typescript-eslint/no-unsafe-assignment, @typescript-eslint/no-unsafe-member-access
        const fileSrc: string = data.fileName;
        createPost.mutate({ title, content, fileSrc });
      } catch (error) {
