@@ -25,7 +25,7 @@ export function PostsTableComponent({ posts }: { posts: Post[] }) {
           {posts.map((post, index) => (
             <TableRow
               key={index}
-              className="bg-white dark:border-gray-700 dark:bg-slate-800"
+              className="bg-white dark:border-gray-700 dark:bg-zinc-900"
             >
               <TableCell className="font-medium text-gray-900 dark:text-white">
                 {post.title.length > 30

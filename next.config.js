@@ -5,6 +5,16 @@
 await import("./src/env.js");
 
 /** @type {import("next").NextConfig} */
-const config = {};
+const config = {
+    images: {
+        remotePatterns: [
+            {
+                protocol: 'https',
+                hostname: 'rotekurve.s3.eu-north-1.amazonaws.com',
+                pathname: '/**'
+            }
+        ]
+    }
+};
 
 export default config;

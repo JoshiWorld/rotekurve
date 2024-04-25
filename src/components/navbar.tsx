@@ -19,7 +19,7 @@ type NavbarItem = {
 const navbarItems: NavbarItem[] = [
   {
     title: "Aktuelles",
-    href: "/",
+    href: "/aktuelles",
   },
   {
     title: "Über uns",

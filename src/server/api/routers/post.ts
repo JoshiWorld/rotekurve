@@ -5,27 +5,22 @@ import {
   protectedProcedure,
   publicProcedure,
 } from "@/server/api/trpc";
+import { env } from "@/env";
 
 export const postRouter = createTRPCRouter({
-  hello: publicProcedure
-    .input(z.object({ text: z.string() }))
-    .query(({ input }) => {
-      return {
-        greeting: `Hello ${input.text}`,
-      };
-    }),
-
   create: protectedProcedure
-    .input(z.object({ title: z.string().min(1), content: z.string().min(1), image: z.string().optional() }))
+    .input(z.object({ 
+      title: z.string().min(1), 
+      content: z.string().min(1),
+      fileSrc: z.string().min(1),
+    }))
     .mutation(async ({ ctx, input }) => {
-      // simulate a slow db call
-      await new Promise((resolve) => setTimeout(resolve, 1000));
 
       return ctx.db.post.create({
         data: {
           title: input.title,
           content: input.content,
-          image: input.image,
+          image: `https://${env.S3_BUCKET_NAME}.s3.${env.S3_REGION}.amazonaws.com/${input.fileSrc}`,
           createdBy: { connect: { id: ctx.session.user.id } },
         },
       });

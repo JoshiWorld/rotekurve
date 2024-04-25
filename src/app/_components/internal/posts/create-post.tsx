@@ -10,13 +10,12 @@ import { Label } from "@/components/ui/label";
 import { Input } from "@/components/ui/input";
 import { Textarea } from "@/components/ui/textarea";
 import { toast } from "sonner";
-import { DialogClose } from "@radix-ui/react-dialog";
 
 export function CreatePost() {
   const router = useRouter();
   const [title, setTitle] = useState<string>("");
   const [content, setContent] = useState<string>("");
-  const [image, setImage] = useState<string>("");
+  const [file, setFile] = useState<File | null>(null);
   const [open, setOpen] = useState<boolean>(false);
 
   const createPost = api.post.create.useMutation({
@@ -25,15 +24,41 @@ export function CreatePost() {
       setOpen(false);
       setTitle("");
       setContent("");
-      setImage("");
+      setFile(null);
       toast("Der Post wurde erstellt.", {
           description: "Titel: " + title
       });
     }
   });
 
+   const handleSubmit = async (e) => {
+     e.preventDefault();
+     if (!file) return;
+
+     const formData = new FormData();
+     formData.append("file", file);
+
+     try {
+       const response = await fetch("/api/posts/upload", {
+         method: "POST",
+         body: formData,
+       });
+
+       const data = await response.json();
+       const fileSrc: string = data.fileName;
+       createPost.mutate({ title, content, fileSrc });
+     } catch (error) {
+       console.log(error);
+     }
+   };
+
+  const onFileChange = (e: React.FormEvent<HTMLInputElement>) => {
+    // @ts-expect-error || its okay that there is an error
+    setFile(e.currentTarget.files?.[0]);
+  }
+
   return (
-    <Dialog onOpenChange={(e) => setOpen(e)} open={open}>
+    <Dialog onOpenChange={setOpen} open={open}>
       <DialogTrigger asChild>
         <Button variant="default">Erstellen</Button>
       </DialogTrigger>
@@ -70,15 +95,19 @@ export function CreatePost() {
             <Label htmlFor="image" className="text-right">
               Titel-Bild
             </Label>
-            <Input type="file" id="image" className="col-span-2" />
+            <Input
+              type="file"
+              id="image"
+              accept="image/*"
+              className="col-span-2"
+              onChange={onFileChange}
+            />
           </div>
         </div>
         <DialogFooter>
           <Button
             type="submit"
-            onClick={() => {
-              createPost.mutate({ title, content, image });
-            }}
+            onClick={handleSubmit}
             disabled={createPost.isPending}
           >
             {createPost.isPending ? "Wird erstellt..." : "Erstellen"}
