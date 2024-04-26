@@ -1,5 +1,7 @@
 import type { Config } from "tailwindcss";
 import flowbite from "flowbite-react/tailwind";
+// @ts-expect-error || declared module
+import { default as flattenColorPalette } from "tailwindcss/lib/util/flattenColorPalette";
 
 /** @type {import('tailwindcss').Config} */
 /**
@@ -81,8 +83,25 @@ const config = {
   },
   plugins: [
     flowbite.plugin(),
-    require("flowbite/plugin")
+    require("flowbite/plugin"),
+    addVariablesForColors,
   ],
 } satisfies Config
+
+// This plugin adds each Tailwind color as a global CSS variable, e.g. var(--gray-200).
+// eslint-disable-next-line @typescript-eslint/no-explicit-any
+function addVariablesForColors({ addBase, theme }: any) {
+  // eslint-disable-next-line @typescript-eslint/no-unsafe-assignment, @typescript-eslint/no-unsafe-call
+  const allColors = flattenColorPalette(theme("colors"));
+  const newVars = Object.fromEntries(
+    // eslint-disable-next-line @typescript-eslint/no-unsafe-argument
+    Object.entries(allColors).map(([key, val]) => [`--${key}`, val])
+  );
+ 
+  // eslint-disable-next-line @typescript-eslint/no-unsafe-call
+  addBase({
+    ":root": newVars,
+  });
+}
 
 export default config

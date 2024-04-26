@@ -16,7 +16,18 @@ export default async function InternalLogin() {
           >
             {session ? "Sign out" : "Sign in"}
           </Link>
+
+          <ShowDashboard />
         </div>
       </div>
     );
+}
+
+async function ShowDashboard() {
+    const session = await getServerAuthSession();
+    if(!session) return null;
+
+    return (
+        <div>PENIS</div>
+    )
 }

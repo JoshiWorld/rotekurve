@@ -21,6 +21,11 @@ const config = {
                 protocol: 'https',
                 hostname: 'rotekurve.s3.eu-north-1.amazonaws.com',
                 pathname: '/**'
+            },
+            {
+                protocol: 'https',
+                hostname: 'images.unsplash.com',
+                pathname: '/**'
             }
         ]
     }
