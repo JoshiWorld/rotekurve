@@ -46,7 +46,9 @@ export const postRouter = createTRPCRouter({
     })
   }),
 
-  getSecretMessage: protectedProcedure.query(() => {
-    return "you can now see this secret message!";
+  getPostById: publicProcedure.input(z.object({ id: z.string().min(1) })).query(({ ctx, input }) => {
+    return ctx.db.post.findFirst({
+      where: { id: input.id },
+    })
   }),
 });

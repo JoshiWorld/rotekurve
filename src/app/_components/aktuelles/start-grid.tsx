@@ -14,6 +14,7 @@ export function StartGrid({ items }: { items: Post[] }) {
       {items.map((item, i) => (
         <BentoGridItem
           key={i}
+          itemId={item.id}
           title={
             item.title.length >= itemTitleLength
               ? item.title.substring(0, itemTitleLength) + "..."

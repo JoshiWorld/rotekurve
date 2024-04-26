@@ -1,4 +1,7 @@
+"use client";
+
 import { cn } from "@/lib/utils";
+import { useRouter } from "next/navigation";
 
 export const BentoGrid = ({
   className,
@@ -25,17 +28,26 @@ export const BentoGridItem = ({
   description,
   header,
   icon,
+  itemId,
 }: {
   className?: string;
   title?: string | React.ReactNode;
   description?: string | React.ReactNode;
   header?: React.ReactNode;
   icon?: React.ReactNode;
+  itemId?: string;
 }) => {
+  const router = useRouter();
+
+  const redirectToPost = () => {
+    router.push(`/aktuelles/${itemId}`);
+  }
+
   return (
     <div
+      onClick={redirectToPost}
       className={cn(
-        "group/bento row-span-1 flex flex-col justify-between space-y-4 rounded-xl border bg-white p-4 shadow-input transition duration-200 hover:shadow-xl dark:border-white/[0.2] dark:bg-black dark:shadow-none",
+        "group/bento row-span-1 flex flex-col cursor-pointer justify-between space-y-4 rounded-xl border bg-white p-4 shadow-input transition duration-200 hover:shadow-xl dark:border-white/[0.2] dark:bg-black dark:shadow-none",
         className,
       )}
     >
