@@ -41,13 +41,17 @@ export const BentoGridItem = ({
 
   const redirectToPost = () => {
     router.push(`/aktuelles/${itemId}`);
-  }
+  };
+  
+  const renderDescription = () => {
+    return { __html: typeof description === "string" ? description : "" };
+  };
 
   return (
     <div
       onClick={redirectToPost}
       className={cn(
-        "group/bento row-span-1 flex flex-col cursor-pointer justify-between space-y-4 rounded-xl border bg-white p-4 shadow-input transition duration-200 hover:shadow-xl dark:border-white/[0.2] dark:bg-black dark:shadow-none",
+        "group/bento row-span-1 flex cursor-pointer flex-col justify-between space-y-4 rounded-xl border bg-white p-4 shadow-input transition duration-200 hover:shadow-xl dark:border-white/[0.2] dark:bg-black dark:shadow-none",
         className,
       )}
     >
@@ -57,9 +61,10 @@ export const BentoGridItem = ({
         <div className="mb-2 mt-2 font-sans font-bold text-neutral-600 dark:text-neutral-200">
           {title}
         </div>
-        <div className="font-sans text-xs font-normal text-neutral-600 dark:text-neutral-300">
-          {description}
-        </div>
+        <div
+          className="font-sans text-xs font-normal text-neutral-600 dark:text-neutral-300"
+          dangerouslySetInnerHTML={renderDescription()}
+        />
       </div>
     </div>
   );

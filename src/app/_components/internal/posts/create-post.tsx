@@ -2,13 +2,22 @@
 
 import { useRouter } from "next/navigation";
 import { useState } from "react";
+import ReactQuill from "react-quill";
+import "react-quill/dist/quill.snow.css";
 
 import { api } from "@/trpc/react";
-import { Dialog, DialogContent, DialogDescription, DialogFooter, DialogHeader, DialogTitle, DialogTrigger } from "@/components/ui/dialog";
+import {
+  Dialog,
+  DialogContent,
+  DialogDescription,
+  DialogFooter,
+  DialogHeader,
+  DialogTitle,
+  DialogTrigger,
+} from "@/components/ui/dialog";
 import { Button } from "@/components/ui/button";
 import { Label } from "@/components/ui/label";
 import { Input } from "@/components/ui/input";
-import { Textarea } from "@/components/ui/textarea";
 import { toast } from "sonner";
 
 export function CreatePost() {
@@ -26,37 +35,37 @@ export function CreatePost() {
       setContent("");
       setFile(null);
       toast("Der Post wurde erstellt.", {
-          description: "Titel: " + title
+        description: "Titel: " + title,
       });
-    }
+    },
   });
 
-   const handleSubmit = async () => {
-     if (!file) return;
+  const handleSubmit = async () => {
+    if (!file) return;
 
-     const formData = new FormData();
-     formData.append("file", file);
+    const formData = new FormData();
+    formData.append("file", file);
 
-     try {
-       const response = await fetch("/api/posts/upload", {
-         method: "POST",
-         body: formData,
-       });
+    try {
+      const response = await fetch("/api/posts/upload", {
+        method: "POST",
+        body: formData,
+      });
 
-       // eslint-disable-next-line @typescript-eslint/no-unsafe-assignment
-       const data = await response.json();
-       // eslint-disable-next-line @typescript-eslint/no-unsafe-assignment, @typescript-eslint/no-unsafe-member-access
-       const fileSrc: string = data.fileName;
-       createPost.mutate({ title, content, fileSrc });
-     } catch (error) {
-       console.log(error);
-     }
-   };
+      // eslint-disable-next-line @typescript-eslint/no-unsafe-assignment
+      const data = await response.json();
+      // eslint-disable-next-line @typescript-eslint/no-unsafe-assignment, @typescript-eslint/no-unsafe-member-access
+      const fileSrc: string = data.fileName;
+      createPost.mutate({ title, content, fileSrc });
+    } catch (error) {
+      console.error(error);
+    }
+  };
 
   const onFileChange = (e: React.FormEvent<HTMLInputElement>) => {
     // @ts-expect-error || its okay that there is an error
     setFile(e.currentTarget.files?.[0]);
-  }
+  };
 
   return (
     <Dialog onOpenChange={setOpen} open={open}>
@@ -85,10 +94,10 @@ export function CreatePost() {
             <Label htmlFor="content" className="text-right">
               Inhalt
             </Label>
-            <Textarea
+            <ReactQuill
+              theme="snow"
               value={content}
-              onChange={(e) => setContent(e.target.value)}
-              id="content"
+              onChange={setContent}
               className="col-span-3"
             />
           </div>

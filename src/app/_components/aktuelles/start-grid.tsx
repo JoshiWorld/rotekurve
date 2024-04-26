@@ -1,13 +1,11 @@
 import React from "react";
 import { BentoGrid, BentoGridItem } from "@/components/ui/bento-grid";
-import {
-  IconSignature,
-} from "@tabler/icons-react";
+import { IconSignature } from "@tabler/icons-react";
 import { type Post } from "@prisma/client";
 import Image from "next/image";
 
 export function StartGrid({ items }: { items: Post[] }) {
-    const itemTitleLength = 40;
+  const itemTitleLength = 40;
 
   return (
     <BentoGrid className="mx-auto max-w-4xl">
@@ -27,7 +25,13 @@ export function StartGrid({ items }: { items: Post[] }) {
           }
           header={
             item.image ? (
-              <Image src={item.image} alt="Bild" width={1000} height={1000} className="rounded-xl" />
+              <Image
+                src={item.image}
+                alt="Bild"
+                width={1000}
+                height={1000}
+                className="rounded-xl"
+              />
             ) : (
               <Skeleton />
             )

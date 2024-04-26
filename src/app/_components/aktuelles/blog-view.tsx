@@ -35,7 +35,10 @@ export function BlogView({ post, date }: { post: Post, date: string }) {
         )}
       </ContainerScroll>
 
-      <div className="container w-full">{post.content}</div>
+      <div
+        className="container w-full"
+        dangerouslySetInnerHTML={{ __html: post.content || "" }}
+      />
     </div>
   );
 }

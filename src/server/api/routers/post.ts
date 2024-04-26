@@ -51,4 +51,26 @@ export const postRouter = createTRPCRouter({
       where: { id: input.id },
     })
   }),
+
+  update: protectedProcedure
+    .input(z.object({ 
+      id: z.string().min(1),
+      title: z.string().min(1), 
+      content: z.string().min(1),
+      archieved: z.boolean(),
+      fileSrc: z.string().min(1).optional(),
+    }))
+    .mutation(async ({ ctx, input }) => {
+      const { id, title, content, archieved } = input;
+
+      return ctx.db.post.update({
+        where: { id },
+        data: {
+          title,
+          content,
+          archieved,
+          // image: `https://${env.S3_BUCKET_NAME}.s3.${env.S3_REGION}.amazonaws.com/${fileSrc}`,
+        },
+      });
+    }),
 });

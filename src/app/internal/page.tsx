@@ -1,5 +1,6 @@
 import Link from "next/link";
 import { getServerAuthSession } from "@/server/auth";
+import { InternalDashboard } from "../_components/internal/internal-dashboard";
 
 export default async function InternalLogin() {
     const session = await getServerAuthSession();
@@ -14,7 +15,7 @@ export default async function InternalLogin() {
             href={session ? "/api/auth/signout" : "/api/auth/signin"}
             className="rounded-full px-10 py-3 font-semibold no-underline transition"
           >
-            {session ? "Sign out" : "Sign in"}
+            {session ? "Ausloggen" : "Einloggen"}
           </Link>
 
           <ShowDashboard />
@@ -27,7 +28,5 @@ async function ShowDashboard() {
     const session = await getServerAuthSession();
     if(!session) return null;
 
-    return (
-        <div>PENIS</div>
-    )
+    return <InternalDashboard />
 }
