@@ -35,7 +35,12 @@ export const SparklesCore = (props: ParticlesProps) => {
     initParticlesEngine(async (engine) => {
       // eslint-disable-next-line @typescript-eslint/no-unsafe-call
       await loadSlim(engine);
+    // eslint-disable-next-line @typescript-eslint/no-unsafe-member-access
+    }).then(() => {
       setInit(true);
+    // eslint-disable-next-line @typescript-eslint/no-unsafe-member-access
+    }).catch((error) => {
+      throw error;
     });
   }, []);
   const controls = useAnimation();
