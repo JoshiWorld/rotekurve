@@ -9,12 +9,13 @@ export function SiteFooter() {
     const currentYear = new Date().getFullYear();
 
   return (
-    <Footer container className="rounded-none mt-10">
+    <Footer container className="sticky bottom-0 mt-10 rounded-none">
       <FooterCopyright href="#" by="Rotekurve" year={currentYear} />
       <FooterLinkGroup>
-        <FooterLink href="#">Impressum</FooterLink>
-        <FooterLink href="#">Datenschutz</FooterLink>
-        <FooterLink href="#">Kontakt</FooterLink>
+        <FooterLink href="/impressum">Impressum</FooterLink>
+        <FooterLink href="/datenschutz">Datenschutz</FooterLink>
+        <FooterLink href="/kontakt">Kontakt</FooterLink>
+        <FooterLink href="/internal">Intern</FooterLink>
       </FooterLinkGroup>
     </Footer>
   );
