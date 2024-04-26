@@ -10,7 +10,7 @@ import {
   TableRow,
 } from "flowbite-react";
 import { useState } from "react";
-import { Pagination, PaginationContent, PaginationEllipsis, PaginationItem, PaginationLink, PaginationNext, PaginationPrevious } from "@/components/ui/pagination";
+import { Pagination, PaginationContent, PaginationItem, PaginationLink, PaginationNext, PaginationPrevious } from "@/components/ui/pagination";
 
 export function PostsTableComponent({ posts }: { posts: Post[] }) {
   const [currentPage, setCurrentPage] = useState(1);
