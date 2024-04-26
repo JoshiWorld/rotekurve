@@ -46,7 +46,7 @@ export function Nav() {
     <Navbar
       fluid
       rounded
-      className="bg-background shadow-xl dark:bg-background dark:shadow-md dark:shadow-gray-600"
+      className="bg-background shadow-xl dark:bg-background dark:shadow-md dark:shadow-gray-600 z-20"
     >
       <NavbarBrand href="https://rotekurve.de">
         <span className="self-center whitespace-nowrap text-xl font-semibold">
