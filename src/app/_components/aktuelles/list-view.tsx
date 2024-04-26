@@ -7,7 +7,7 @@ import { type Post } from "@prisma/client";
 export function PostListView({ items }: { items: Post[]}) {
 
   return (
-    <TracingBeam className="px-6 pb-52">
+    <TracingBeam className="px-6">
       <div className="relative mx-auto max-w-2xl pt-4 antialiased">
         {items.map((item, index) => (
           <div
@@ -20,7 +20,7 @@ export function PostListView({ items }: { items: Post[]}) {
 
             <p className="mb-4 text-xl font-bold">{item.title}</p>
 
-            <div className="prose  prose-sm dark:prose-invert text-sm">
+            <div className="prose prose-sm dark:prose-invert text-sm">
               {item?.image ? (
                 <Image
                   src={item.image}
