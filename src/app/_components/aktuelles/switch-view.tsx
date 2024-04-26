@@ -3,12 +3,21 @@
 import { Label } from "@/components/ui/label";
 import { Switch } from "@/components/ui/switch";
 import { type Post } from "@prisma/client";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { StartGrid } from "./start-grid";
 import { PostListView } from "./list-view";
 
 export function SwitchView({ items }: { items: Post[] }) {
-    const [isExtendedView, setIsExtendedView] = useState<boolean>(false);
+    const [isExtendedView, setIsExtendedView] = useState<boolean>(() => {
+      const cachedValue = localStorage.getItem("isExtendedView");
+      // eslint-disable-next-line @typescript-eslint/no-unsafe-return
+      return cachedValue ? JSON.parse(cachedValue) : false;
+    });
+
+    useEffect(() => {
+      // Update local storage when state changes
+      localStorage.setItem("isExtendedView", JSON.stringify(isExtendedView));
+    }, [isExtendedView]);
 
     const handleToggle = () => {
         setIsExtendedView((prev) => !prev);
