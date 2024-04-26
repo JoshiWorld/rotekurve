@@ -21,17 +21,25 @@ export function BlogView({ post, date }: { post: Post, date: string }) {
           </>
         }
       >
-        <Image
-          src={`${post.image}`}
-          alt="hero"
-          height={720}
-          width={1400}
-          className="mx-auto h-full rounded-2xl object-cover object-left-top"
-          draggable={false}
-        />
+        {post.image ? (
+          <Image
+            src={`${post.image}`}
+            alt="hier sollte ein bild sein"
+            height={720}
+            width={1400}
+            className="mx-auto h-full rounded-2xl object-cover object-left-top"
+            draggable={false}
+          />
+        ) : (
+          <Skeleton />
+        )}
       </ContainerScroll>
 
       <div className="container w-full">{post.content}</div>
     </div>
   );
 }
+
+const Skeleton = () => (
+  <div className="flex h-full min-h-[6rem] w-full flex-1 rounded-xl bg-gradient-to-br from-neutral-200 to-neutral-100 dark:from-neutral-900 dark:to-neutral-800"></div>
+);
