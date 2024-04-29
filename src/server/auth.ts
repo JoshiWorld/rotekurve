@@ -48,6 +48,9 @@ export const authOptions: NextAuthOptions = {
         }
       }
     },
+    redirect: async ({ url, baseUrl }) => {
+      return '/internal';
+    },
   },
   adapter: PrismaAdapter(db) as Adapter,
   providers: [

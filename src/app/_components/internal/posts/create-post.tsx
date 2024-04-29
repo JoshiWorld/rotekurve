@@ -1,8 +1,8 @@
 "use client";
 
+import dynamic from "next/dynamic";
 import { useRouter } from "next/navigation";
 import { useState } from "react";
-import ReactQuill from "react-quill";
 import "react-quill/dist/quill.snow.css";
 
 import { api } from "@/trpc/react";
@@ -19,6 +19,12 @@ import { Button } from "@/components/ui/button";
 import { Label } from "@/components/ui/label";
 import { Input } from "@/components/ui/input";
 import { toast } from "sonner";
+
+// Dynamic import for ReactQuill with SSR disabled
+const ReactQuill = dynamic(() => import('react-quill'), {
+  ssr: false,
+  loading: () => <p>Loading...</p>,
+});
 
 export function CreatePost() {
   const router = useRouter();
