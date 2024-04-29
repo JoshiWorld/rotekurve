@@ -1,46 +1,47 @@
 "use client";
 import React from "react";
 import Image from "next/image";
-import { TracingBeam } from "@/components/ui/tracing-beam";
+// import { TracingBeam } from "@/components/ui/tracing-beam";
 import { type Post } from "@prisma/client";
 
 export function PostListView({ items }: { items: Post[]}) {
 
   return (
-    <TracingBeam className="px-6">
-      <div className="relative mx-auto max-w-2xl pt-4 antialiased">
-        {items.map((item, index) => (
-          <div
-            key={`content-${index}`}
-            className="mb-10 rounded-sm bg-zinc-100 p-5 shadow-md dark:bg-zinc-900"
-          >
-            <h2 className="mb-4 w-fit rounded-full bg-black px-4 py-1 text-sm text-white">
-              {item.createdAt.toLocaleDateString()}
-            </h2>
+    // <TracingBeam className="px-6">
 
-            <p className="mb-4 text-xl font-bold">{item.title}</p>
+    // </TracingBeam>
+    <div className="relative mx-auto max-w-2xl pt-4 antialiased">
+      {items.map((item, index) => (
+        <div
+          key={`content-${index}`}
+          className="mb-10 rounded-sm bg-zinc-100 p-5 shadow-md dark:bg-zinc-900"
+        >
+          <h2 className="mb-4 w-fit rounded-full bg-black px-4 py-1 text-sm text-white">
+            {item.createdAt.toLocaleDateString()}
+          </h2>
 
-            <div className="prose prose-sm dark:prose-invert text-sm">
-              {item?.image ? (
-                <Image
-                  src={item.image}
-                  alt="blog thumbnail"
-                  height="1000"
-                  width="1000"
-                  className="mb-10 rounded-lg object-cover"
-                />
-              ) : (
-                <Skeleton />
-              )}
-              <div
-                className="whitespace-pre-line"
-                dangerouslySetInnerHTML={{ __html: item.content || "" }}
+          <p className="mb-4 text-xl font-bold">{item.title}</p>
+
+          <div className="prose prose-sm dark:prose-invert text-sm">
+            {item?.image ? (
+              <Image
+                src={item.image}
+                alt="blog thumbnail"
+                height="1000"
+                width="1000"
+                className="mb-10 rounded-lg object-cover"
               />
-            </div>
+            ) : (
+              <Skeleton />
+            )}
+            <div
+              className="whitespace-pre-line"
+              dangerouslySetInnerHTML={{ __html: item.content || "" }}
+            />
           </div>
-        ))}
-      </div>
-    </TracingBeam>
+        </div>
+      ))}
+    </div>
   );
 }
 
