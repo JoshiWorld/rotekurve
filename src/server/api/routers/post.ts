@@ -71,6 +71,14 @@ export const postRouter = createTRPCRouter({
           archieved,
           // image: `https://${env.S3_BUCKET_NAME}.s3.${env.S3_REGION}.amazonaws.com/${fileSrc}`,
         },
+      }).then((post) => {
+        return ctx.db.log.create({
+          data: {
+            updatedBy: { connect: { id: ctx.session.user.id } },
+            updatedPost: { connect: { id: post.id } },
+            updatedContent: content,
+          },
+        });
       });
     }),
 });

@@ -1,6 +1,6 @@
 import { EditPostForm } from "@/app/_components/internal/posts/edit-post";
 import { api } from "@/trpc/server";
-import { type Post } from "@prisma/client";
+import { type Log, type Post } from "@prisma/client";
 
 export default async function PostsEdit({
   params: { slug },
@@ -9,6 +9,7 @@ export default async function PostsEdit({
 }) {
   const currentPost: Post | null = await api.post.getPostById({ id: slug });
   if (!currentPost) return null;
+  const logs: Log[] | null = await api.log.getLogs({ id: currentPost.id });
 
-  return <EditPostForm post={currentPost} />;
+  return <EditPostForm post={currentPost} logs={logs} />;
 }

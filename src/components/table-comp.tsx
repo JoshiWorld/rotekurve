@@ -9,18 +9,24 @@ import {
   TableHeadCell,
   TableRow,
 } from "flowbite-react";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { Pagination, PaginationContent, PaginationItem, PaginationLink, PaginationNext, PaginationPrevious } from "@/components/ui/pagination";
 
 export function PostsTableComponent({ posts }: { posts: Post[] }) {
+  const [postsList, setPostsList] = useState<Post[]>([]);
   const [currentPage, setCurrentPage] = useState(1);
   const [postsPerPage] = useState(10);
 
   const indexOfLastPost = currentPage * postsPerPage;
   const indexOfFirstPost = indexOfLastPost - postsPerPage;
-  const currentPosts = posts.slice(indexOfFirstPost, indexOfLastPost);
+  const currentPosts = postsList.slice(indexOfFirstPost, indexOfLastPost);
 
   const paginate = (pageNumber: number) => setCurrentPage(pageNumber);
+
+  useEffect(() => {
+    setCurrentPage(1);
+    setPostsList(posts);
+  }, [posts]);
 
   return (
     <div className="container overflow-x-auto">
@@ -65,7 +71,7 @@ export function PostsTableComponent({ posts }: { posts: Post[] }) {
 
       <PaginationTable
         postsPerPage={postsPerPage}
-        totalPosts={posts.length}
+        totalPosts={postsList.length}
         paginate={paginate}
         currentPage={currentPage}
       />
