@@ -8,7 +8,7 @@ export function LogView({log}: {log: Log}) {
   return (
     <Alert>
       <Terminal className="h-4 w-4" />
-      <AlertTitle>
+      <AlertTitle> 
         {/* @ts-expect-error || updatedBy is always true */}
         {log.updatedBy} ({log.createdAt.toLocaleDateString()})
       </AlertTitle>
