@@ -2,7 +2,6 @@
 
 import { useRouter } from "next/navigation";
 import { zodResolver } from "@hookform/resolvers/zod";
-import { type Post } from "@prisma/client";
 import { useForm } from "react-hook-form";
 import { z } from "zod";
 import { Button } from "@/components/ui/button";
@@ -15,65 +14,52 @@ import {
   FormLabel,
   FormMessage,
 } from "@/components/ui/form";
-import { Input } from "@/components/ui/input";
-import { Checkbox } from "@/components/ui/checkbox";
 import { api } from "@/trpc/react";
 import { toast } from "sonner";
 
 import ReactQuill from "react-quill";
 import "react-quill/dist/quill.snow.css";
+import { CreateAboutus } from "./create-aboutus";
+import { type AboutUs } from "@prisma/client";
 
 const formSchema = z.object({
-  title: z.string().min(1),
   content: z.string().min(1),
-  archieved: z.boolean(),
 });
 
-export function EditPostForm({ post }: { post: Post }) {
+export function EditAboutus({aboutus}: {aboutus: AboutUs}) {
   const router = useRouter();
 
   // Init Form
   const form = useForm<z.infer<typeof formSchema>>({
     resolver: zodResolver(formSchema),
     defaultValues: {
-      title: post.title,
-      content: post.content,
-      archieved: post.archieved,
+      // eslint-disable-next-line @typescript-eslint/no-unsafe-assignment, @typescript-eslint/no-unsafe-member-access
+      content: aboutus!.content,
     },
   });
 
-  const editPost = api.post.update.useMutation({
+  const editAboutus = api.aboutus.update.useMutation({
     onSuccess: () => {
-      router.push('/internal/posts');
+      router.push("/internal");
       toast("Die Bearbeitung war erfolgreich.", {
-        description: "ID: " + post.id,
+        description: "Über uns wurde geändert.",
       });
     },
   });
 
   function onSubmit(values: z.infer<typeof formSchema>) {
-    const id = post.id;
-    const { title, content, archieved } = values;
-    editPost.mutate({ id, title, content, archieved });
+    // eslint-disable-next-line @typescript-eslint/no-unsafe-assignment, @typescript-eslint/no-unsafe-member-access
+    const id = aboutus!.id;
+    const { content } = values;
+    // eslint-disable-next-line @typescript-eslint/no-unsafe-assignment
+    editAboutus.mutate({ id, content });
   }
+
+  if (!aboutus) return <CreateAboutus />;
 
   return (
     <Form {...form}>
       <form onSubmit={form.handleSubmit(onSubmit)} className="w-full space-y-8">
-        <FormField
-          control={form.control}
-          name="title"
-          render={({ field }) => (
-            <FormItem>
-              <FormLabel>Titel</FormLabel>
-              <FormControl>
-                <Input type="text" placeholder="Titel" {...field} />
-              </FormControl>
-              <FormDescription>Titel des Posts bearbeiten</FormDescription>
-              <FormMessage />
-            </FormItem>
-          )}
-        />
         <FormField
           control={form.control}
           name="content"
@@ -102,32 +88,13 @@ export function EditPostForm({ post }: { post: Post }) {
                   }}
                 />
               </FormControl>
-              <FormDescription>Inhalt des Posts bearbeiten</FormDescription>
+              <FormDescription>Über uns Inhalt bearbeiten</FormDescription>
               <FormMessage />
             </FormItem>
           )}
         />
-        <FormField
-          control={form.control}
-          name="archieved"
-          render={({ field }) => (
-            <FormItem className="flex flex-row items-start space-x-3 space-y-0 rounded-md border p-4">
-              <FormLabel>Archiviert</FormLabel>
-              <FormControl>
-                <Checkbox
-                  checked={field.value}
-                  onCheckedChange={field.onChange}
-                />
-              </FormControl>
-              <FormDescription>
-                Soll dieser Post archiviert werden?
-              </FormDescription>
-              <FormMessage />
-            </FormItem>
-          )}
-        />
-        <Button type="submit" disabled={editPost.isPending}>
-          {editPost.isPending ? "Wird gespeichert..." : "Speichern"}
+        <Button type="submit" disabled={editAboutus.isPending}>
+          {editAboutus.isPending ? "Wird gespeichert..." : "Speichern"}
         </Button>
       </form>
     </Form>
