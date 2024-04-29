@@ -54,7 +54,7 @@ export const authOptions: NextAuthOptions = {
         }
       }
     },
-    redirect: async ({ url, baseUrl }) => {
+    redirect: async ({  }) => {
       return '/internal';
     },
   },

@@ -27,7 +27,21 @@ model Post {
     createdBy   User   @relation(fields: [createdById], references: [id])
     createdById String @db.ObjectId
 
+    logs Log[]
+
     @@index([title])
+}
+
+model Log {
+    id             String   @id @default(auto()) @map("_id") @db.ObjectId
+    createdAt      DateTime @default(now())
+    updatedBy      User     @relation(fields: [updatedById], references: [id])
+    updatedById    String   @db.ObjectId
+    updatedPost    Post     @relation(fields: [updatedPostId], references: [id])
+    updatedPostId  String   @db.ObjectId
+    updatedContent String
+
+    @@index([updatedContent])
 }
 
 // Necessary for Next auth
@@ -68,6 +82,7 @@ model User {
     accounts      Account[]
     sessions      Session[]
     posts         Post[]
+    logs          Log[]
 }
 
 model VerificationToken {
