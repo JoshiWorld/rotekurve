@@ -8,7 +8,7 @@ export default async function AboutUs() {
     <div
       className="mt-8 flex flex-col items-center gap-2"
       // eslint-disable-next-line @typescript-eslint/no-unsafe-assignment, @typescript-eslint/no-unsafe-member-access
-      dangerouslySetInnerHTML={{ __html: abouts?.content || "" }}
+      dangerouslySetInnerHTML={{ __html: abouts?.content ?? "" }}
     />
   );
 }

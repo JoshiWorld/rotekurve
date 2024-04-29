@@ -34,7 +34,7 @@ export function EditAboutus({aboutus}: {aboutus: AboutUs}) {
     resolver: zodResolver(formSchema),
     defaultValues: {
       // eslint-disable-next-line @typescript-eslint/no-unsafe-assignment, @typescript-eslint/no-unsafe-member-access
-      content: aboutus!.content,
+      content: aboutus.content,
     },
   });
 
@@ -49,7 +49,7 @@ export function EditAboutus({aboutus}: {aboutus: AboutUs}) {
 
   function onSubmit(values: z.infer<typeof formSchema>) {
     // eslint-disable-next-line @typescript-eslint/no-unsafe-assignment, @typescript-eslint/no-unsafe-member-access
-    const id = aboutus!.id;
+    const id = aboutus.id;
     const { content } = values;
     // eslint-disable-next-line @typescript-eslint/no-unsafe-assignment
     editAboutus.mutate({ id, content });
