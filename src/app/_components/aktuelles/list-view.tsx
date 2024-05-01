@@ -17,7 +17,7 @@ export function PostListView({ items }: { items: Post[]}) {
           className="mb-10 rounded-sm bg-zinc-100 p-5 shadow-md dark:bg-zinc-900"
         >
           <h2 className="mb-4 w-fit rounded-full bg-black px-4 py-1 text-sm text-white">
-            {item.createdAt.toLocaleDateString()}
+            {item.createdAt.toLocaleString()}
           </h2>
 
           <p className="mb-4 text-xl font-bold">{item.title}</p>

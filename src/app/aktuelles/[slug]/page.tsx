@@ -9,7 +9,7 @@ const BlogPost = async ({ params: { slug } }: { params: { slug: string } }) => {
 
   return (
     <p className="text-2xl">
-      <BlogView post={currentPost} date={currentPost.createdAt.toLocaleDateString()} />
+      <BlogView post={currentPost} date={currentPost.createdAt.toLocaleString()} />
     </p>
   );
 };
