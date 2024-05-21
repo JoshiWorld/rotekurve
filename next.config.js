@@ -5,6 +5,30 @@
 await import("./src/env.js");
 
 /** @type {import("next").NextConfig} */
-const config = {};
+const config = {
+    async redirects() {
+        return [
+            {
+                source: '/',
+                destination: '/aktuelles',
+                permanent: true,
+            },
+        ];
+    },
+    images: {
+        remotePatterns: [
+            {
+                protocol: 'https',
+                hostname: 'rotekurve.s3.eu-north-1.amazonaws.com',
+                pathname: '/**'
+            },
+            {
+                protocol: 'https',
+                hostname: 'images.unsplash.com',
+                pathname: '/**'
+            }
+        ]
+    }
+};
 
 export default config;
