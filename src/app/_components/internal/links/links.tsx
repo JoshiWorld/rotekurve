@@ -1,3 +1,5 @@
+// @typescript-eslint/no-unnecessary-type-assertion
+
 import { LinksTableComponent } from "@/components/table-comp";
 import { getServerAuthSession } from "@/server/auth";
 import { api } from "@/trpc/server";
