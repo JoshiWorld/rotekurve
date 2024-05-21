@@ -1,7 +1,6 @@
 import { LinksTableComponent } from "@/components/table-comp";
 import { getServerAuthSession } from "@/server/auth";
 import { api } from "@/trpc/server";
-import { type Link } from "@prisma/client";
 
 export async function LinksTable() {
   const session = await getServerAuthSession();

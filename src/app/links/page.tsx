@@ -1,6 +1,5 @@
 /* eslint-disable @typescript-eslint/no-unsafe-assignment */
 import * as React from "react";
-import { type Link } from "@prisma/client";
 import { LinksCarousel } from "../_components/links/link-carousel";
 import { api } from "@/trpc/server";
 
