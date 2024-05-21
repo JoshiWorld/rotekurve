@@ -10,7 +10,7 @@ import { AktuellesHeadSparkles } from "./main-header";
 
 export function SwitchView({ items }: { items: Post[] }) {
     const [isExtendedView, setIsExtendedView] = useState<boolean>(() => {
-      const cachedValue = localStorage.getItem("isExtendedView");
+      const cachedValue = localStorage ? localStorage.getItem("isExtendedView") : false;
       // eslint-disable-next-line @typescript-eslint/no-unsafe-return
       return cachedValue ? JSON.parse(cachedValue) : false;
     });

@@ -25,10 +25,10 @@ const navbarItems: NavbarItem[] = [
     title: "Über uns",
     href: "/about-us",
   },
-  {
-    title: "Spielplan",
-    href: "/spielplan",
-  },
+  // {
+  //   title: "Spielplan",
+  //   href: "/spielplan",
+  // },
   {
     title: "Links",
     href: "/links",

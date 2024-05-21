@@ -34,6 +34,7 @@ export default function Contact() {
               type="text"
               value={firstname}
               onChange={(e) => setFirstname(e.target.value)}
+              required
             />
           </LabelInputContainer>
           <LabelInputContainer>
@@ -44,6 +45,7 @@ export default function Contact() {
               type="text"
               value={lastname}
               onChange={(e) => setLastname(e.target.value)}
+              required
             />
           </LabelInputContainer>
         </div>
@@ -55,6 +57,7 @@ export default function Contact() {
             type="email"
             value={email}
             onChange={(e) => setEmail(e.target.value)}
+            required
           />
         </LabelInputContainer>
         <LabelInputContainer className="mb-4">
@@ -64,6 +67,7 @@ export default function Contact() {
             placeholder="Beschreibe dein Anliegen.."
             value={content}
             onChange={(e) => setContent(e.target.value)}
+            required
           />
         </LabelInputContainer>
 

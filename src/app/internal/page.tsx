@@ -31,5 +31,5 @@ async function ShowDashboard() {
     const session = await getServerAuthSession();
     if(!session) return null;
 
-    return <InternalDashboard />
+    return <InternalDashboard />;
 }

@@ -1,6 +1,8 @@
+/* eslint-disable @typescript-eslint/no-unsafe-call */
+/* eslint-disable @typescript-eslint/no-unsafe-member-access */
 "use client";
 
-import { type Post } from "@prisma/client";
+import { type Post, type Link } from "@prisma/client";
 import {
   Table,
   TableBody,
@@ -72,6 +74,79 @@ export function PostsTableComponent({ posts }: { posts: Post[] }) {
       <PaginationTable
         postsPerPage={postsPerPage}
         totalPosts={postsList.length}
+        paginate={paginate}
+        currentPage={currentPage}
+      />
+    </div>
+  );
+}
+
+export function LinksTableComponent({ links }: { links: Link[] }) {
+  const [linksList, setLinksList] = useState<Link[]>([]);
+  const [currentPage, setCurrentPage] = useState(1);
+  const [postsPerPage] = useState(10);
+
+  const indexOfLastPost = currentPage * postsPerPage;
+  const indexOfFirstPost = indexOfLastPost - postsPerPage;
+  const currentLink = linksList.slice(indexOfFirstPost, indexOfLastPost);
+
+  const paginate = (pageNumber: number) => setCurrentPage(pageNumber);
+
+  useEffect(() => {
+    setCurrentPage(1);
+    setLinksList(links);
+  }, [links]);
+
+  return (
+    <div className="container overflow-x-auto">
+      <div className="min-w-full overflow-x-auto">
+        <Table>
+          <TableHead>
+            <TableHeadCell>Titel</TableHeadCell>
+            <TableHeadCell>Beschreibung</TableHeadCell>
+            <TableHeadCell>Link</TableHeadCell>
+            {/* <TableHeadCell>
+              <span className="sr-only">Bearbeiten</span>
+            </TableHeadCell> */}
+          </TableHead>
+          <TableBody className="divide-y">
+            {currentLink.map((link, index) => (
+              <TableRow
+                key={index}
+                className="bg-white dark:border-gray-700 dark:bg-zinc-900"
+              >
+                <TableCell className="font-medium text-gray-900 dark:text-white">
+                  {link.title.length > 30
+                    ? link.title.substring(0, 50) + "..."
+                    : link.title}
+                </TableCell>
+                <TableCell className="font-medium text-gray-900 dark:text-white">
+                  {link.description.length > 30
+                    ? link.description.substring(0, 50) + "..."
+                    : link.description}
+                </TableCell>
+                <TableCell className="font-medium text-gray-900 dark:text-white">
+                  {link.href.length > 30
+                    ? link.href.substring(0, 50) + "..."
+                    : link.href}
+                </TableCell>
+                {/* <TableCell>
+                  <a
+                    href={`/internal/posts/${link.id}`}
+                    className="font-medium text-primary hover:underline"
+                  >
+                    Bearbeiten
+                  </a>
+                </TableCell> */}
+              </TableRow>
+            ))}
+          </TableBody>
+        </Table>
+      </div>
+
+      <PaginationTable
+        postsPerPage={postsPerPage}
+        totalPosts={linksList.length}
         paginate={paginate}
         currentPage={currentPage}
       />
