@@ -63,4 +63,10 @@ export const projects = [
     link: "/cloud",
     disabled: true,
   },
+  {
+    title: "User",
+    description: "Nutzer verwalten",
+    link: "/user",
+    disabled: false,
+  },
 ];
