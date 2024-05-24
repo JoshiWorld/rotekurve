@@ -33,7 +33,9 @@ export function AktuellesHeadSparkles() {
             backgroundImage:
               "url('https://rotekurve.s3.eu-north-1.amazonaws.com/posts/1714039369194-308er-AUFTRITT.jpg')",
             backgroundSize: "cover",
+            backgroundRepeat: "no-repeat",
             backgroundPosition: "center",
+            backgroundOrigin: "revert",
           }}
         >
           <SparklesCore
