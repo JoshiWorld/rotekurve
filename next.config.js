@@ -11,7 +11,13 @@ const config = {
             {
                 source: '/',
                 destination: '/aktuelles',
-                permanent: true,
+                permanent: false,
+            },
+            {
+                source: '/internal/mail',
+                destination: 'https://rotekurve.awsapps.com/mail',
+                permanent: false,
+                basePath: false
             },
         ];
     },
@@ -29,14 +35,6 @@ const config = {
             }
         ]
     },
-    async rewrites() {
-        return [
-            {
-                source: '/internal/mail',
-                destination: "https://rotekurve.awsapps.com/mail"
-            }
-        ]
-    }
 };
 
 export default config;
