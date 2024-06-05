@@ -4,17 +4,33 @@ import { Label } from "@/components/ui/label";
 import { Input } from "@/components/ui/input";
 import { cn } from "@/lib/utils";
 import { Textarea } from "@/components/ui/textarea";
+import { api } from "@/trpc/react";
+import { useRouter } from "next/navigation";
 
 export default function Contact() {
+  const router = useRouter();
+
   const [firstname, setFirstname] = useState<string>("");
   const [lastname, setLastname] = useState<string>("");
   const [email, setEmail] = useState<string>("");
   const [content, setContent] = useState<string>("");
 
+  const sendMail = api.contact.send.useMutation({
+    onSuccess: () => {
+      router.push('/contact/sent');
+      setFirstname('');
+      setLastname("");
+      setEmail("");
+      setContent("");
+    }
+  });
+
   const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     console.log({ firstname, lastname, email, content });
+    sendMail.mutate({firstname, lastname, email, content});
   };
+
   return (
     <div className="mx-auto mt-10 w-full max-w-md rounded-none bg-white p-4 shadow-input dark:bg-black md:rounded-2xl md:p-8">
       <h2 className="text-xl font-bold text-neutral-800 dark:text-neutral-200">
@@ -76,8 +92,9 @@ export default function Contact() {
         <button
           className="group/btn relative block h-10 w-full rounded-md bg-gradient-to-br from-black to-neutral-600 font-medium text-white shadow-[0px_1px_0px_0px_#ffffff40_inset,0px_-1px_0px_0px_#ffffff40_inset] dark:bg-zinc-800 dark:from-zinc-900 dark:to-zinc-900 dark:shadow-[0px_1px_0px_0px_var(--zinc-800)_inset,0px_-1px_0px_0px_var(--zinc-800)_inset]"
           type="submit"
+          disabled={sendMail.isPending}
         >
-          Senden &rarr;
+          {sendMail.isPending ? "Wird gesendet.." : "Senden"}&rarr;
           <BottomGradient />
         </button>
       </form>
