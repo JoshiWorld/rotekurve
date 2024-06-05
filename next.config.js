@@ -28,6 +28,14 @@ const config = {
                 pathname: '/**'
             }
         ]
+    },
+    async rewrites() {
+        return [
+            {
+                source: '/internal/mail',
+                destination: "https://rotekurve.awsapps.com/mail"
+            }
+        ]
     }
 };
 

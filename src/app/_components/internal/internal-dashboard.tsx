@@ -24,7 +24,7 @@ export const projects = [
     title: "Mail",
     description: "Hier kannst du auf den Posteingang zugreifen",
     link: "/mail",
-    disabled: true,
+    disabled: false,
   },
   {
     title: "Aktuelles",
