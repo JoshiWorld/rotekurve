@@ -13,12 +13,12 @@ const config = {
                 destination: '/aktuelles',
                 permanent: false,
             },
-            {
-                source: '/internal/mail',
-                destination: 'https://rotekurve.awsapps.com/mail',
-                permanent: false,
-                basePath: false
-            },
+            // {
+            //     source: '/internal/mail',
+            //     destination: 'https://rotekurve.awsapps.com/mail',
+            //     permanent: false,
+            //     basePath: false
+            // },
         ];
     },
     images: {

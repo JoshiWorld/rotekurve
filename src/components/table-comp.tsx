@@ -13,6 +13,9 @@ import {
 } from "flowbite-react";
 import { useEffect, useState } from "react";
 import { Pagination, PaginationContent, PaginationItem, PaginationLink, PaginationNext, PaginationPrevious } from "@/components/ui/pagination";
+import { Button } from "./ui/button";
+import { TrashIcon } from "lucide-react";
+import { api } from "@/trpc/react";
 
 export function PostsTableComponent({ posts }: { posts: Post[] }) {
   const [postsList, setPostsList] = useState<Post[]>([]);
@@ -97,6 +100,12 @@ export function LinksTableComponent({ links }: { links: Link[] }) {
     setLinksList(links);
   }, [links]);
 
+  const delLink = api.link.delete.useMutation({
+    onSuccess: () => {
+      window.location.reload();
+    }
+  });
+
   return (
     <div className="container overflow-x-auto">
       <div className="min-w-full overflow-x-auto">
@@ -105,9 +114,12 @@ export function LinksTableComponent({ links }: { links: Link[] }) {
             <TableHeadCell>Titel</TableHeadCell>
             <TableHeadCell>Beschreibung</TableHeadCell>
             <TableHeadCell>Link</TableHeadCell>
-            {/* <TableHeadCell>
+            <TableHeadCell>
               <span className="sr-only">Bearbeiten</span>
-            </TableHeadCell> */}
+            </TableHeadCell>
+            <TableHeadCell>
+              <span className="sr-only">Löschen</span>
+            </TableHeadCell>
           </TableHead>
           <TableBody className="divide-y">
             {currentLink.map((link, index) => (
@@ -130,14 +142,23 @@ export function LinksTableComponent({ links }: { links: Link[] }) {
                     ? link.href.substring(0, 50) + "..."
                     : link.href}
                 </TableCell>
-                {/* <TableCell>
+                <TableCell>
                   <a
-                    href={`/internal/posts/${link.id}`}
+                    href={`/internal/links/${link.id}`}
                     className="font-medium text-primary hover:underline"
                   >
                     Bearbeiten
                   </a>
-                </TableCell> */}
+                </TableCell>
+                <TableCell>
+                  <Button
+                    variant="secondary"
+                    onClick={() => delLink.mutate({ id: link.id })}
+                    disabled={delLink.isPending}
+                  >
+                    <TrashIcon />
+                  </Button>
+                </TableCell>
               </TableRow>
             ))}
           </TableBody>

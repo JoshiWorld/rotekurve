@@ -37,7 +37,7 @@ export const projects = [
     title: "Über uns",
     description: "Hier kannst du die Details von Über uns bearbeiten",
     link: "/aboutus",
-    disabled: true,
+    disabled: false,
   },
   {
     title: "Spielplan",
@@ -49,7 +49,7 @@ export const projects = [
     title: "Links",
     description: "Hier kannst du die Links bearbeiten",
     link: "/links",
-    disabled: true,
+    disabled: false,
   },
   {
     title: "Kontakt",
@@ -67,6 +67,18 @@ export const projects = [
     title: "User",
     description: "Nutzer verwalten",
     link: "/user",
+    disabled: false,
+  },
+  {
+    title: "Impressum",
+    description: "Impressum bearbeiten",
+    link: "/impressum",
+    disabled: false,
+  },
+  {
+    title: "Datenschutz",
+    description: "Datenschutz bearbeiten",
+    link: "/datenschutz",
     disabled: false,
   },
 ];
