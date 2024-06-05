@@ -44,7 +44,7 @@ export function LinksCarousel({ links }: { links: Link[] }) {
                 </CardHeader>
                 <CardFooter className="flex justify-center">
                   <Button variant="link" asChild>
-                    <a href={link.href}>Zur Website</a>
+                    <a href={link.href} target="_blank" rel="noopener noreferrer">Zur Website</a>
                   </Button>
                 </CardFooter>
               </Card>

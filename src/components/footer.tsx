@@ -14,7 +14,6 @@ export function SiteFooter() {
       <FooterLinkGroup>
         <FooterLink href="/impressum">Impressum</FooterLink>
         <FooterLink href="/datenschutz">Datenschutz</FooterLink>
-        <FooterLink href="/kontakt">Kontakt</FooterLink>
         <FooterLink href="/internal">Intern</FooterLink>
       </FooterLinkGroup>
     </Footer>
