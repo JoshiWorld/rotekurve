@@ -35,6 +35,7 @@ export function AktuellesHeadSparkles() {
             backgroundSize: "cover",
             backgroundRepeat: "no-repeat",
             backgroundPosition: "center",
+            backgroundPositionY: "-300px",
             backgroundOrigin: "revert",
           }}
         >
