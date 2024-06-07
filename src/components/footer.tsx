@@ -10,7 +10,7 @@ export function SiteFooter() {
 
   return (
     <Footer container className="sticky bottom-0 mt-10 rounded-none dark:bg-zinc-800">
-      <FooterCopyright href="#" by="Rotekurve" year={currentYear} />
+      <FooterCopyright href="#" by="Rote Kurve" year={currentYear} />
       <FooterLinkGroup>
         <FooterLink href="/impressum">Impressum</FooterLink>
         <FooterLink href="/datenschutz">Datenschutz</FooterLink>

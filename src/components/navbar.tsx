@@ -50,7 +50,7 @@ export function Nav() {
     >
       <NavbarBrand href="https://rotekurve.de">
         <span className="self-center whitespace-nowrap text-xl font-semibold">
-          Rotekurve
+          {/* Rotekurve */}
         </span>
       </NavbarBrand>
       <div className="flex md:order-2">

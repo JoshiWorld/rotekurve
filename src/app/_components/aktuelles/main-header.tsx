@@ -50,7 +50,7 @@ export function AktuellesHeadSparkles() {
         </div>
       </div>
       <h1 className="relative z-20 text-center text-3xl font-bold uppercase text-white md:text-7xl lg:text-6xl">
-        Rotekurve
+        {/* Rotekurve */}
       </h1>
     </div>
   );
