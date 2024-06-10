@@ -10,6 +10,8 @@ import {
   NavbarToggle,
 } from "flowbite-react";
 import { usePathname } from "next/navigation";
+import Image from "next/image";
+import { useTheme } from "next-themes";
 
 type NavbarItem = {
   title: string;
@@ -41,17 +43,35 @@ const navbarItems: NavbarItem[] = [
 
 export function Nav() {
   const pathname = usePathname();
+  const { resolvedTheme } = useTheme();
 
   return (
     <Navbar
       fluid
       rounded
-      className="bg-background shadow-xl dark:bg-background dark:shadow-md dark:shadow-gray-600 z-20"
+      className="z-20 bg-background shadow-xl dark:bg-background dark:shadow-md dark:shadow-gray-600"
     >
-      <NavbarBrand href="https://rotekurve.de">
-        <span className="self-center whitespace-nowrap text-xl font-semibold">
+      <NavbarBrand href="https://rotekurve-supporters.de">
+        {resolvedTheme === "dark" ? (
+          <Image
+            src="/images/logo_black.png"
+            width={150}
+            height={200}
+            className="h-6 sm:h-9"
+            alt="Rote Kurve Supporters Logo"
+          />
+        ) : (
+          <Image
+            src="/images/logo_white.png"
+            width={150}
+            height={200}
+            className="h-6 sm:h-9"
+            alt="Rote Kurve Supporters Logo"
+          />
+        )}
+        {/* <span className="self-center whitespace-nowrap text-xl font-semibold">
           Rote Kurve
-        </span>
+        </span> */}
       </NavbarBrand>
       <div className="flex md:order-2">
         <ThemeSwitch />

@@ -78,7 +78,7 @@ export function CreatePost() {
       <DialogTrigger asChild>
         <Button variant="default">Erstellen</Button>
       </DialogTrigger>
-      <DialogContent className="sm:max-w-[800px]">
+      <DialogContent className="max-h-[80vh] overflow-y-auto sm:max-w-[800px]">
         <DialogHeader>
           <DialogTitle>Blog-Post erstellen</DialogTitle>
           <DialogDescription>Test</DialogDescription>

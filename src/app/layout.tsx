@@ -15,7 +15,7 @@ const inter = Inter({
 });
 
 export const metadata = {
-  title: "Rotekurve",
+  title: "Rote Kurve - Supporters",
   description: "Copyrighted to Joshua Stieber",
   icons: [{ rel: "icon", url: "/favicon.ico" }],
 };

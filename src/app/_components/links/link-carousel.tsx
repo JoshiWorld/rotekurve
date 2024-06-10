@@ -57,3 +57,26 @@ export function LinksCarousel({ links }: { links: Link[] }) {
     </Carousel>
   );
 }
+
+export function LinksScrollView({links}: {links: Link[]}) {
+  return (
+    <div className="relative mx-auto max-w-2xl pt-4 antialiased">
+      {links.map((item, index) => (
+        <div
+          key={`content-${index}`}
+          className="mb-10 rounded-sm bg-zinc-100 p-5 shadow-md dark:bg-zinc-900"
+        >
+          <p className="mb-4 text-xl font-bold">{item.title}</p>
+
+          <div className="prose prose-sm dark:prose-invert text-sm">
+            <div
+              className="whitespace-pre-line pb-5"
+              dangerouslySetInnerHTML={{ __html: item.description || "" }}
+            />
+            <a href={item.href}><Button variant={"link"}>Zur Website</Button></a>
+          </div>
+        </div>
+      ))}
+    </div>
+  );
+}
