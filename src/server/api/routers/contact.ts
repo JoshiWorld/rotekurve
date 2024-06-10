@@ -56,4 +56,73 @@ export const contactRouter = createTRPCRouter({
         return { message: "Error sending email" };
       }
     }),
+
+  createSocial: publicProcedure
+    .input(
+      z.object({
+        href: z.string().min(1),
+        title: z.string().optional(),
+      }),
+    )
+    .mutation(async ({ ctx, input }) => {
+      const { href, title } = input;
+
+      // eslint-disable-next-line @typescript-eslint/no-unsafe-return, @typescript-eslint/no-unsafe-call, @typescript-eslint/no-unsafe-member-access
+      return ctx.db.socialLinks.create({
+        data: { href, title },
+      });
+    }),
+
+  getSocials: publicProcedure.query(({ ctx }) => {
+    // eslint-disable-next-line @typescript-eslint/no-unsafe-return, @typescript-eslint/no-unsafe-call, @typescript-eslint/no-unsafe-member-access
+    return ctx.db.socialLinks.findMany();
+  }),
+
+  updateSocial: publicProcedure
+    .input(
+      z.object({
+        id: z.string().min(1),
+        href: z.string().min(1).optional(),
+        title: z.string().optional(),
+      }),
+    )
+    .mutation(async ({ ctx, input }) => {
+      const { id, href, title } = input;
+
+      // eslint-disable-next-line @typescript-eslint/no-unsafe-return, @typescript-eslint/no-unsafe-call, @typescript-eslint/no-unsafe-member-access
+      return ctx.db.socialLinks.update({
+        where: { id },
+        data: { href, title },
+      });
+    }),
+
+  deleteSocial: publicProcedure
+    .input(
+      z.object({
+        id: z.string().min(1),
+      }),
+    )
+    .mutation(async ({ ctx, input }) => {
+      const { id } = input;
+
+      // eslint-disable-next-line @typescript-eslint/no-unsafe-return, @typescript-eslint/no-unsafe-call, @typescript-eslint/no-unsafe-member-access
+      return ctx.db.socialLinks.delete({
+        where: { id },
+      });
+    }),
+
+  getSocialById: publicProcedure
+    .input(
+      z.object({
+        id: z.string().min(1),
+      }),
+    )
+    .mutation(async ({ ctx, input }) => {
+      const { id } = input;
+
+      // eslint-disable-next-line @typescript-eslint/no-unsafe-return, @typescript-eslint/no-unsafe-call, @typescript-eslint/no-unsafe-member-access
+      return ctx.db.socialLinks.findUnique({
+        where: { id },
+      });
+    }),
 });

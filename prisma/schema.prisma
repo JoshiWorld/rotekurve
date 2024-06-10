@@ -140,3 +140,9 @@ model Link {
     title       String
     description String
 }
+
+model SocialLinks {
+    id    String  @id @default(auto()) @map("_id") @db.ObjectId
+    title String
+    href  String
+}

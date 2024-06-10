@@ -2,7 +2,7 @@
 /* eslint-disable @typescript-eslint/no-unsafe-member-access */
 "use client";
 
-import { type Post, type Link } from "@prisma/client";
+import { type Post, type Link, type SocialLinks } from "@prisma/client";
 import {
   Table,
   TableBody,
@@ -153,6 +153,92 @@ export function LinksTableComponent({ links }: { links: Link[] }) {
                 <TableCell>
                   <Button
                     variant="secondary"
+                    onClick={() => delLink.mutate({ id: link.id })}
+                    disabled={delLink.isPending}
+                  >
+                    <TrashIcon />
+                  </Button>
+                </TableCell>
+              </TableRow>
+            ))}
+          </TableBody>
+        </Table>
+      </div>
+
+      <PaginationTable
+        postsPerPage={postsPerPage}
+        totalPosts={linksList.length}
+        paginate={paginate}
+        currentPage={currentPage}
+      />
+    </div>
+  );
+}
+
+export function SocialTableComponent({ links }: { links: SocialLinks[] }) {
+  const [linksList, setLinksList] = useState<SocialLinks[]>([]);
+  const [currentPage, setCurrentPage] = useState(1);
+  const [postsPerPage] = useState(10);
+
+  const indexOfLastPost = currentPage * postsPerPage;
+  const indexOfFirstPost = indexOfLastPost - postsPerPage;
+  const currentLink = linksList.slice(indexOfFirstPost, indexOfLastPost);
+
+  const paginate = (pageNumber: number) => setCurrentPage(pageNumber);
+
+  useEffect(() => {
+    setCurrentPage(1);
+    setLinksList(links);
+  }, [links]);
+
+  const delLink = api.contact.deleteSocial.useMutation({
+    onSuccess: () => {
+      window.location.reload();
+    },
+  });
+
+  return (
+    <div className="container overflow-x-auto">
+      <div className="min-w-full overflow-x-auto">
+        <Table>
+          <TableHead>
+            <TableHeadCell>Titel</TableHeadCell>
+            <TableHeadCell>Link</TableHeadCell>
+            <TableHeadCell>
+              <span className="sr-only">Bearbeiten</span>
+            </TableHeadCell>
+            <TableHeadCell>
+              <span className="sr-only">Löschen</span>
+            </TableHeadCell>
+          </TableHead>
+          <TableBody className="divide-y">
+            {currentLink.map((link, index) => (
+              <TableRow
+                key={index}
+                className="bg-white dark:border-gray-700 dark:bg-zinc-900"
+              >
+                <TableCell className="font-medium text-gray-900 dark:text-white">
+                  {link.title.length > 30
+                    ? link.title.substring(0, 50) + "..."
+                    : link.title}
+                </TableCell>
+                <TableCell className="font-medium text-gray-900 dark:text-white">
+                  {link.href.length > 30
+                    ? link.href.substring(0, 50) + "..."
+                    : link.href}
+                </TableCell>
+                <TableCell>
+                  <a
+                    href={`/internal/links/${link.id}`}
+                    className="font-medium text-primary hover:underline"
+                  >
+                    Bearbeiten
+                  </a>
+                </TableCell>
+                <TableCell>
+                  <Button
+                    variant="secondary"
+                    // eslint-disable-next-line @typescript-eslint/no-unsafe-assignment
                     onClick={() => delLink.mutate({ id: link.id })}
                     disabled={delLink.isPending}
                   >
