@@ -61,7 +61,7 @@ export const contactRouter = createTRPCRouter({
     .input(
       z.object({
         href: z.string().min(1),
-        title: z.string().optional(),
+        title: z.string().min(1),
       }),
     )
     .mutation(async ({ ctx, input }) => {
