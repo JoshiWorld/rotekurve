@@ -4,8 +4,11 @@ import dynamic from "next/dynamic";
 import { useRouter } from "next/navigation";
 import { useState } from "react";
 import "react-quill/dist/quill.snow.css";
+import { format } from "date-fns";
 
 import { api } from "@/trpc/react";
+import { Calendar as CalendarIcon } from "lucide-react";
+import { cn } from "@/lib/utils";
 import {
   Dialog,
   DialogContent,
@@ -19,6 +22,8 @@ import { Button } from "@/components/ui/button";
 import { Label } from "@/components/ui/label";
 import { Input } from "@/components/ui/input";
 import { toast } from "sonner";
+import { Calendar } from "@/components/ui/calendar";
+import { Popover, PopoverContent, PopoverTrigger } from "@/components/ui/popover";
 
 // Dynamic import for ReactQuill with SSR disabled
 const ReactQuill = dynamic(() => import('react-quill'), {
@@ -30,6 +35,7 @@ export function CreatePost() {
   const router = useRouter();
   const [title, setTitle] = useState<string>("");
   const [content, setContent] = useState<string>("");
+  const [createdAt, setCreatedAt] = useState<Date | undefined>(new Date());
   const [file, setFile] = useState<File | null>(null);
   const [open, setOpen] = useState<boolean>(false);
 
@@ -38,6 +44,7 @@ export function CreatePost() {
       router.refresh();
       setOpen(false);
       setTitle("");
+      setCreatedAt(new Date());
       setContent("");
       setFile(null);
       toast("Der Post wurde erstellt.", {
@@ -47,7 +54,7 @@ export function CreatePost() {
   });
 
   const handleSubmit = async () => {
-    if (!file) return;
+    if (!file || !createdAt) return;
 
     const formData = new FormData();
     formData.append("file", file);
@@ -62,7 +69,7 @@ export function CreatePost() {
       const data = await response.json();
       // eslint-disable-next-line @typescript-eslint/no-unsafe-assignment, @typescript-eslint/no-unsafe-member-access
       const fileSrc: string = data.fileName;
-      createPost.mutate({ title, content, fileSrc });
+      createPost.mutate({ title, content, fileSrc, createdAt });
     } catch (error) {
       console.error(error);
     }
@@ -106,6 +113,32 @@ export function CreatePost() {
               onChange={setContent}
               className="col-span-3"
             />
+          </div>
+          <div className="grid grid-cols-4 items-center gap-4">
+            <Label htmlFor="content" className="text-right">
+              Wann wurde der Beitrag erstellt?
+            </Label>
+            <Popover>
+              <PopoverTrigger asChild>
+                <Button
+                  variant={"outline"}
+                  className={cn(
+                    "w-[280px] justify-start text-left font-normal",
+                    !createdAt && "text-muted-foreground",
+                  )}
+                >
+                  <CalendarIcon className="mr-2 h-4 w-4" />
+                  {createdAt ? format(createdAt, "PPP") : <span>Datum auswählen</span>}
+                </Button>
+              </PopoverTrigger>
+              <PopoverContent className="w-auto p-0">
+                <Calendar
+                  mode="single"
+                  selected={createdAt}
+                  onSelect={setCreatedAt}
+                />
+              </PopoverContent>
+            </Popover>
           </div>
           <div className="grid grid-cols-4 items-center gap-4">
             <Label htmlFor="image" className="text-right">
