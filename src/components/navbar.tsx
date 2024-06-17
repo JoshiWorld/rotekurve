@@ -12,6 +12,7 @@ import {
 import { usePathname } from "next/navigation";
 import Image from "next/image";
 import { useTheme } from "next-themes";
+import { useEffect, useState } from "react";
 
 type NavbarItem = {
   title: string;
@@ -44,6 +45,9 @@ const navbarItems: NavbarItem[] = [
 export function Nav() {
   const pathname = usePathname();
   const { resolvedTheme } = useTheme();
+  const windowSize = useWindowSize();
+  // @ts-expect-error || @ts-ignore
+  const isMobile = windowSize.width <= 640;
 
   return (
     <Navbar
@@ -55,16 +59,16 @@ export function Nav() {
         {resolvedTheme === "dark" ? (
           <Image
             src="/images/logo_black.png"
-            width={150}
-            height={200}
+            width={isMobile ? 100 : 150}
+            height={isMobile ? 150 : 200}
             className="h-6 sm:h-9"
             alt="Rote Kurve Supporters Logo"
           />
         ) : (
           <Image
             src="/images/logo_white.png"
-            width={150}
-            height={200}
+            width={isMobile ? 100 : 150}
+            height={isMobile ? 150 : 200}
             className="h-6 sm:h-9"
             alt="Rote Kurve Supporters Logo"
           />
@@ -90,4 +94,34 @@ export function Nav() {
       </NavbarCollapse>
     </Navbar>
   );
+}
+
+function useWindowSize() {
+  const [windowSize, setWindowSize] = useState({
+    width: undefined,
+    height: undefined,
+  });
+
+  useEffect(() => {
+    // Handler to call on window resize
+    function handleResize() {
+      setWindowSize({
+        // @ts-expect-error || @ts-ignore
+        width: window.innerWidth,
+        // @ts-expect-error || @ts-ignore
+        height: window.innerHeight,
+      });
+    }
+
+    // Add event listener
+    window.addEventListener("resize", handleResize);
+
+    // Call handler right away so state gets updated with initial window size
+    handleResize();
+
+    // Remove event listener on cleanup
+    return () => window.removeEventListener("resize", handleResize);
+  }, []); // Empty array ensures that effect is only run on mount
+
+  return windowSize;
 }
