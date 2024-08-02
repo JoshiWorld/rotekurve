@@ -81,7 +81,7 @@ export function Nav() {
         <ThemeSwitch />
         <NavbarToggle />
       </div>
-      <NavbarCollapse>
+      <NavbarCollapse className="md:pr-24">
         {navbarItems.map((item, index) => (
           <NavbarLink
             active={pathname === item.href}
