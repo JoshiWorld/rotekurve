@@ -8,9 +8,10 @@ import { cn } from "@/lib/utils";
 import { Textarea } from "@/components/ui/textarea";
 import { api } from "@/trpc/react";
 import { useRouter } from "next/navigation";
-import { type SocialLinks } from "@prisma/client";
 import { Skeleton } from "@/components/ui/skeleton";
 import { SelectSeparator } from "@/components/ui/select";
+import { type SocialLinks } from "@prisma/client";
+import { FacebookIcon, InstagramIcon, TwitterIcon, YouTubeIcon } from "@/components/social-icons";
 
 
 function ContactLinks() {
@@ -20,12 +21,12 @@ function ContactLinks() {
 
   useEffect(() => {
     // eslint-disable-next-line @typescript-eslint/no-unsafe-argument
-    if(data) setLinks(data);
+    if (data) setLinks(data);
   }, [data]);
 
   return (
-    <div className="flex flex-row justify-center py-5 text-center">
-      <h1 className="scroll-m-20 text-4xl font-extrabold tracking-tight lg:text-5xl">
+    <div className="flex flex-col items-center justify-center space-y-4 py-5 text-center">
+      <h1 className="mb-5 scroll-m-20 text-4xl font-extrabold tracking-tight lg:text-5xl">
         Unser Social-Media
       </h1>
       {isLoading ? (
@@ -34,19 +35,21 @@ function ContactLinks() {
           <Skeleton className="h-4 w-[200px]" />
         </div>
       ) : (
-        links.map((link, index) => (
-          <div key={index} className="grid grid-cols-2 gap-4">
-            <p className="border-cyan-500 pt-2 text-xl font-semibold tracking-tight first:mt-0">
-              {link.title}
-            </p>
+        <div className="flex space-x-4">
+          {links.map((link, index) => (
             <a
+              key={index}
               href={link.href}
-              className="pt-2 text-xl font-semibold tracking-tight first:mt-0"
+              className="pt-2 text-xl font-semibold tracking-tight"
+              aria-label={link.title}
             >
-              {link.href}
+              {link.title.toLowerCase() === "twitter" && <TwitterIcon />}
+              {link.title.toLowerCase() === "instagram" && <InstagramIcon />}
+              {link.title.toLowerCase() === "youtube" && <YouTubeIcon />}
+              {link.title.toLowerCase() === "facebook" && <FacebookIcon />}
             </a>
-          </div>
-        ))
+          ))}
+        </div>
       )}
     </div>
   );
