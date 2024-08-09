@@ -27,7 +27,7 @@ export function BlogView({ post, date }: { post: Post, date: string }) {
             alt="hier sollte ein bild sein"
             height={720}
             width={1400}
-            className="mx-auto h-full rounded-2xl object-cover object-left-top"
+            className="mx-auto h-full rounded-2xl object-left-top"
             draggable={false}
           />
         ) : (
