@@ -12,7 +12,7 @@ export function BlogView({ post, date }: { post: Post, date: string }) {
     .replace(/<em>/g, '<em class="font-thin">');
 
   return (
-    <div className="flex flex-col overflow-hidden">
+    <div className="flex flex-col overflow-hidden md:pt-28">
       <ContainerScroll
         titleComponent={
           <>
@@ -32,11 +32,10 @@ export function BlogView({ post, date }: { post: Post, date: string }) {
               alt="hier sollte ein bild sein"
               height={720}
               width={1400}
-              className="mx-auto h-auto w-full rounded-2xl object-left-top"
+              className="mx-auto aspect-auto h-auto w-full rounded-2xl object-left-top"
               draggable={false}
               style={{
-                aspectRatio: "1400 / 720", // Behält das Seitenverhältnis bei
-                objectFit: "cover", // Füllt den Container aus
+                objectFit: "cover",
               }}
             />
           </div>
@@ -46,7 +45,7 @@ export function BlogView({ post, date }: { post: Post, date: string }) {
       </ContainerScroll>
 
       <div
-        className="container w-full"
+        className="container w-full md:pt-36"
         dangerouslySetInnerHTML={{ __html: modifiedContent || "" }}
       />
     </div>
