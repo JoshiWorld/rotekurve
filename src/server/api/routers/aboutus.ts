@@ -12,7 +12,6 @@ export const aboutusRouter = createTRPCRouter({
       content: z.string().min(1),
     }))
     .mutation(async ({ ctx, input }) => {
-
         // eslint-disable-next-line @typescript-eslint/no-unsafe-return, @typescript-eslint/no-unsafe-call, @typescript-eslint/no-unsafe-member-access
       return ctx.db.aboutUs.create({
         data: {
