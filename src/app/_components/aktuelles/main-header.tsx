@@ -33,7 +33,10 @@ export function AktuellesHeadSparkles() {
             backgroundImage:
               "url('https://rotekurve.s3.eu-north-1.amazonaws.com/posts/1714039369194-308er-AUFTRITT.jpg')",
             backgroundSize: "cover",
+            backgroundRepeat: "no-repeat",
             backgroundPosition: "center",
+            backgroundPositionY: "-300px",
+            backgroundOrigin: "revert",
           }}
         >
           <SparklesCore
@@ -47,7 +50,7 @@ export function AktuellesHeadSparkles() {
         </div>
       </div>
       <h1 className="relative z-20 text-center text-3xl font-bold uppercase text-white md:text-7xl lg:text-6xl">
-        Rotekurve
+        {/* Rotekurve */}
       </h1>
     </div>
   );

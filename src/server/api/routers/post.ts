@@ -13,6 +13,7 @@ export const postRouter = createTRPCRouter({
       title: z.string().min(1), 
       content: z.string().min(1),
       fileSrc: z.string().min(1),
+      createdAt: z.date()
     }))
     .mutation(async ({ ctx, input }) => {
 
@@ -22,6 +23,7 @@ export const postRouter = createTRPCRouter({
           content: input.content,
           image: `https://${env.S3_BUCKET_NAME}.s3.${env.S3_REGION}.amazonaws.com/${input.fileSrc}`,
           createdBy: { connect: { id: ctx.session.user.id } },
+          createdAt: input.createdAt
         },
       });
     }),

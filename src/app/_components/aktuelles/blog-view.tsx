@@ -7,29 +7,39 @@ import { type Post } from "@prisma/client";
 
 // date is splitted because of server side hydration
 export function BlogView({ post, date }: { post: Post, date: string }) {
+  const modifiedContent = post.content
+    .replace(/<i>/g, '<i class="font-thin">')
+    .replace(/<em>/g, '<em class="font-thin">');
+
   return (
     <div className="flex flex-col overflow-hidden">
       <ContainerScroll
         titleComponent={
           <>
             <h1 className="text-4xl font-semibold text-black dark:text-white">
-              {post.title} <br />
               <span className="mt-1 text-4xl font-bold leading-none md:text-[6rem]">
-                {date}
+                {post.title}
               </span>
+              <br />
             </h1>
           </>
         }
       >
         {post.image ? (
-          <Image
-            src={`${post.image}`}
-            alt="hier sollte ein bild sein"
-            height={720}
-            width={1400}
-            className="mx-auto h-full rounded-2xl object-cover object-left-top"
-            draggable={false}
-          />
+          <div className="w-full">
+            <Image
+              src={`${post.image}`}
+              alt="hier sollte ein bild sein"
+              height={720}
+              width={1400}
+              className="mx-auto h-auto w-full rounded-2xl object-left-top"
+              draggable={false}
+              style={{
+                aspectRatio: "1400 / 720", // Behält das Seitenverhältnis bei
+                objectFit: "cover", // Füllt den Container aus
+              }}
+            />
+          </div>
         ) : (
           <Skeleton />
         )}
@@ -37,7 +47,7 @@ export function BlogView({ post, date }: { post: Post, date: string }) {
 
       <div
         className="container w-full"
-        dangerouslySetInnerHTML={{ __html: post.content || "" }}
+        dangerouslySetInnerHTML={{ __html: modifiedContent || "" }}
       />
     </div>
   );

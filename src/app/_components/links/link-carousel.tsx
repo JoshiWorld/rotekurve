@@ -44,7 +44,7 @@ export function LinksCarousel({ links }: { links: Link[] }) {
                 </CardHeader>
                 <CardFooter className="flex justify-center">
                   <Button variant="link" asChild>
-                    <a href={link.href}>Zur Website</a>
+                    <a href={link.href} target="_blank" rel="noopener noreferrer">Zur Website</a>
                   </Button>
                 </CardFooter>
               </Card>
@@ -55,5 +55,24 @@ export function LinksCarousel({ links }: { links: Link[] }) {
       <CarouselPrevious />
       <CarouselNext />
     </Carousel>
+  );
+}
+
+export function LinksScrollView({ links }: { links: Link[] }) {
+  return (
+    <div className="relative mx-auto max-w-2xl pt-4 text-center antialiased">
+      {links.map((item, index) => (
+        <div key={`content-${index}`} className="mb-4">
+          <a
+            href={item.href}
+            target="_blank"
+            rel="noopener noreferrer"
+            className="text-xl font-bold text-primary hover:underline"
+          >
+            {item.title}
+          </a>
+        </div>
+      ))}
+    </div>
   );
 }

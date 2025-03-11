@@ -1,6 +1,6 @@
 /* eslint-disable @typescript-eslint/no-unsafe-assignment */
 import * as React from "react";
-import { LinksCarousel } from "../_components/links/link-carousel";
+import { LinksScrollView } from "../_components/links/link-carousel";
 import { api } from "@/trpc/server";
 
 export default async function Links() {
@@ -8,7 +8,8 @@ export default async function Links() {
 
   return(
     <div className="flex flex-col items-center justify-center space-y-4 pt-5">
-      <LinksCarousel links={links} />
+      {/* <LinksCarousel links={links} /> */}
+      <LinksScrollView links={links} />
     </div>
   )
 }
