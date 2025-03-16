@@ -30,7 +30,8 @@ const formSchema = z.object({
   archieved: z.boolean(),
 });
 
-export function EditPostForm({ post, logs }: { post: Post, logs: Log[] }) {
+// export function EditPostForm({ post, logs }: { post: Post, logs: Log[] }) {
+export function EditPostForm({ post }: { post: Post }) {
   const router = useRouter();
 
   // Init Form
@@ -137,11 +138,11 @@ export function EditPostForm({ post, logs }: { post: Post, logs: Log[] }) {
         </form>
       </Form>
 
-      {logs.map((log, index) => (
+      {/* {logs.map((log, index) => (
         <div className="mt-8" key={index}>
           <LogView log={log} />
         </div>
-      ))}
+      ))} */}
     </div>
   );
 }

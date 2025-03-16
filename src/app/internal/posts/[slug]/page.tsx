@@ -13,7 +13,8 @@ export default async function PostsEdit({
 
   const currentPost: Post | null = await api.post.getPostById({ id: slug });
   if (!currentPost) return null;
-  const logs: Log[] | null = await api.log.getLogs({ id: currentPost.id });
+  // const logs: Log[] | null = await api.log.getLogs({ id: currentPost.id });
 
-  return <EditPostForm post={currentPost} logs={logs} />;
+  // return <EditPostForm post={currentPost} logs={logs} />;
+  return <EditPostForm post={currentPost} />;
 }
